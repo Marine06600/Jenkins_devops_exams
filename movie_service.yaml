@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-service
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-service
+  template:
+    metadata:
+      labels:
+        app: movie-service
+    spec:
+      containers:
+        - name: movie-service
+          image: <marine06l/movie_service:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URI
+              value: postgresql://movie_db_username:movie_db_password@movie_db/movie_db_dev
+          volumeMounts:
+            - mountPath: /app/
+              name: movie-service-volume
+      volumes:
+        - name: movie-service-volume
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: movie-service
+  namespace: dev
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: movie-service

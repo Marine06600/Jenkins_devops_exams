@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: dev
+data:
+  nginx_config.conf: |
+    server {
+      listen 8080;
+      location / {
+        proxy_pass http://movie-service:8000;
+      }
+    }
