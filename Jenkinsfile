@@ -57,7 +57,7 @@ pipeline {
                 cat $KUBECONFIG > .kube/config
                 cp fastapi/values.yaml values.yml
                 cat values.yml
-                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_NEWTAG}+g" values.yml
                 helm upgrade --install app fastapi --values=values.yml --namespace dev
                 '''
                 }
@@ -77,7 +77,7 @@ pipeline {
                 cat $KUBECONFIG > .kube/config
                 cp fastapi/values.yaml values.yml
                 cat values.yml
-                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_NEWTAG}+g" values.yml
                 helm upgrade --install app fastapi --values=values.yml --namespace staging
                 '''
                 }
@@ -103,7 +103,7 @@ pipeline {
                     cat $KUBECONFIG > .kube/config
                     cp fastapi/values.yaml values.yml
                     cat values.yml
-                    sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                    sed -i "s+tag.*+tag: ${DOCKER_NEWTAG}+g" values.yml
                     helm upgrade --install app fastapi --values=values.yml --namespace prod
                     '''
                 }
