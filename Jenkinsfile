@@ -18,6 +18,14 @@ pipeline {
             }
         }
 
+        stage('Print Docker Tag') {
+            steps {
+                script {
+                    echo "Docker Tag: ${DOCKER_TAG}"
+                }
+            }
+        }
+
         stage('Test Acceptance'){ // we launch the curl command to validate that the container responds to the request
             steps {
                     script {
